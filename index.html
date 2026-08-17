@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller Pro - Sistema de Gestión</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-icon">🔧</span>
+        <div>
+          <h1>Taller Pro</h1>
+          <small>Gestión de Vehículos</small>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-view="dashboard">
+          <span>📊</span> Dashboard
+        </button>
+        <button class="nav-btn" data-view="entrada">
+          <span>➕</span> Nueva Entrada
+        </button>
+        <button class="nav-btn" data-view="historial">
+          <span>📋</span> Historial
+        </button>
+        <button class="nav-btn" data-view="config">
+          <span>⚙️</span> Configuración
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="btnExport" class="btn-outline">💾 Exportar</button>
+        <button id="btnImport" class="btn-outline">📥 Importar</button>
+        <input type="file" id="importFile" accept=".json" hidden />
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h2 id="viewTitle">Dashboard</h2>
+        <div class="stats-mini" id="statsMini"></div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section id="view-dashboard" class="view active">
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Vehículos en el taller</h3>
+            <input type="search" id="searchDashboard" placeholder="Buscar placa, cliente..." class="search-input" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Placa</th>
+                  <th>Vehículo</th>
+                  <th>Cliente</th>
+                  <th>Área</th>
+                  <th>Encargado</th>
+                  <th>Entrada</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaActivos"></tbody>
+            </table>
+          </div>
+          <p class="empty-msg" id="emptyActivos" style="display:none">No hay vehículos en el taller</p>
+        </div>
+      </section>
+
+      <!-- NUEVA ENTRADA -->
+      <section id="view-entrada" class="view">
+        <div class="card form-card">
+          <h3>Registrar entrada de vehículo</h3>
+          <form id="formEntrada">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Placa *</label>
+                <input type="text" name="placa" required placeholder="ABC-123" maxlength="12" style="text-transform:uppercase" />
+              </div>
+              <div class="form-group">
+                <label>Marca *</label>
+                <input type="text" name="marca" required placeholder="Toyota, Chevrolet..." />
+              </div>
+              <div class="form-group">
+                <label>Modelo *</label>
+                <input type="text" name="modelo" required placeholder="Corolla, Spark..." />
+              </div>
+              <div class="form-group">
+                <label>Color</label>
+                <input type="text" name="color" placeholder="Blanco, Negro..." />
+              </div>
+              <div class="form-group">
+                <label>Cliente *</label>
+                <input type="text" name="cliente" required placeholder="Nombre del cliente" />
+              </div>
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" placeholder="300 123 4567" />
+              </div>
+              <div class="form-group">
+                <label>Área de trabajo *</label>
+                <select name="area" id="selectAreaEntrada" required></select>
+              </div>
+              <div class="form-group">
+                <label>Personal encargado *</label>
+                <select name="encargado" id="selectEncargadoEntrada" required></select>
+              </div>
+              <div class="form-group full">
+                <label>Motivo / Notas</label>
+                <textarea name="notas" rows="3" placeholder="Descripción del trabajo a realizar..."></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Registrar Entrada</button>
+              <button type="reset" class="btn-secondary">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- HISTORIAL -->
+      <section id="view-historial" class="view">
+        <div class="card">
+          <div class="card-header">
+            <h3>Historial completo</h3>
+            <div class="filters">
+              <input type="search" id="searchHistorial" placeholder="Buscar..." class="search-input" />
+              <select id="filtroEstado">
+                <option value="todos">Todos</option>
+                <option value="en_taller">En taller</option>
+                <option value="entregado">Entregados</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Placa</th>
+                  <th>Vehículo</th>
+                  <th>Cliente</th>
+                  <th>Estado</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+                  <th>Tiempo</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody id="tablaHistorial"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFIGURACIÓN -->
+      <section id="view-config" class="view">
+        <div class="config-grid">
+          <div class="card">
+            <h3>Áreas de trabajo</h3>
+            <form id="formArea" class="inline-form">
+              <input type="text" name="nombre" placeholder="Nueva área..." required />
+              <button type="submit" class="btn-primary">Agregar</button>
+            </form>
+            <ul class="list-edit" id="listaAreas"></ul>
+          </div>
+          <div class="card">
+            <h3>Personal</h3>
+            <form id="formPersonal" class="inline-form">
+              <input type="text" name="nombre" placeholder="Nombre del técnico..." required />
+              <button type="submit" class="btn-primary">Agregar</button>
+            </form>
+            <ul class="list-edit" id="listaPersonal"></ul>
+          </div>
+          <div class="card full">
+            <h3>Datos del sistema</h3>
+            <p>Los datos se guardan localmente en este navegador. Usa Exportar para hacer respaldo.</p>
+            <button id="btnLimpiarTodo" class="btn-danger">🗑️ Borrar todos los datos</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal detalle / acciones -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

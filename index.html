@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller Pro — Gestión Premium de Vehículos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>" />
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="bg-effects">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <div class="logo-mark">
+          <span>🔧</span>
+        </div>
+        <div class="logo-text">
+          <h1>Taller<span>Pro</span></h1>
+          <small>Enterprise Edition</small>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-label">Principal</div>
+        <button class="nav-btn active" data-view="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-btn" data-view="entrada">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span>Nueva Entrada</span>
+        </button>
+        <button class="nav-btn" data-view="historial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          <span>Historial</span>
+        </button>
+
+        <div class="nav-label">Sistema</div>
+        <button class="nav-btn" data-view="tutorial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Tutoriales</span>
+        </button>
+        <button class="nav-btn" data-view="config">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Configuración</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="btnExport" class="btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          Exportar
+        </button>
+        <button id="btnImport" class="btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Importar
+        </button>
+        <input type="file" id="importFile" accept=".json" hidden />
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuToggle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="topbar-title">
+          <h2 id="viewTitle">Dashboard</h2>
+          <p id="viewSubtitle">Panel de control en tiempo real</p>
+        </div>
+        <div class="topbar-right">
+          <div class="live-pill" id="liveBadge">
+            <span class="pulse-dot"></span>
+            <span id="liveCount">0 activos</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section id="view-dashboard" class="view active">
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="panel glass">
+          <div class="panel-header">
+            <div>
+              <h3>Vehículos en el taller</h3>
+              <p class="panel-desc">Monitoreo en tiempo real de unidades en proceso</p>
+            </div>
+            <div class="search-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="search" id="searchDashboard" placeholder="Buscar placa o cliente..." />
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Placa</th>
+                  <th>Vehículo</th>
+                  <th>Cliente</th>
+                  <th>Área</th>
+                  <th>Encargado</th>
+                  <th>Entrada</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaActivos"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="emptyActivos" style="display:none">
+            <div class="empty-icon">🚗</div>
+            <h4>Taller vacío</h4>
+            <p>No hay vehículos registrados actualmente</p>
+            <button class="btn-primary" onclick="showView('entrada')">+ Registrar primera entrada</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENTRADA -->
+      <section id="view-entrada" class="view">
+        <div class="panel glass form-panel">
+          <div class="panel-header">
+            <div>
+              <h3>Nueva entrada de vehículo</h3>
+              <p class="panel-desc">Registra todos los datos para iniciar el proceso</p>
+            </div>
+          </div>
+          <form id="formEntrada">
+            <div class="form-section">
+              <div class="section-badge">01</div>
+              <h4>Datos del vehículo</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Placa <span class="req">*</span></label>
+                  <input type="text" name="placa" required placeholder="ABC-123" maxlength="12" style="text-transform:uppercase" />
+                </div>
+                <div class="form-group">
+                  <label>Marca <span class="req">*</span></label>
+                  <input type="text" name="marca" required placeholder="Toyota, Chevrolet..." />
+                </div>
+                <div class="form-group">
+                  <label>Modelo <span class="req">*</span></label>
+                  <input type="text" name="modelo" required placeholder="Corolla, Onix..." />
+                </div>
+                <div class="form-group">
+                  <label>Color</label>
+                  <input type="text" name="color" placeholder="Blanco perlado..." />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="section-badge">02</div>
+              <h4>Datos del cliente</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Nombre completo <span class="req">*</span></label>
+                  <input type="text" name="cliente" required placeholder="Nombre del propietario" />
+                </div>
+                <div class="form-group">
+                  <label>Teléfono de contacto</label>
+                  <input type="tel" name="telefono" placeholder="300 123 4567" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="section-badge">03</div>
+              <h4>Asignación de trabajo</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Área de trabajo <span class="req">*</span></label>
+                  <select name="area" id="selectAreaEntrada" required></select>
+                </div>
+                <div class="form-group">
+                  <label>Técnico encargado <span class="req">*</span></label>
+                  <select name="encargado" id="selectEncargadoEntrada" required></select>
+                </div>
+                <div class="form-group full">
+                  <label>Diagnóstico / Notas</label>
+                  <textarea name="notas" rows="3" placeholder="Describe las fallas reportadas o el trabajo a realizar..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary btn-lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Registrar Entrada
+              </button>
+              <button type="reset" class="btn-secondary">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- HISTORIAL -->
+      <section id="view-historial" class="view">
+        <div class="panel glass">
+          <div class="panel-header">
+            <div>
+              <h3>Historial completo</h3>
+              <p class="panel-desc">Registro histórico de todas las operaciones</p>
+            </div>
+            <div class="filters-row">
+              <div class="search-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="search" id="searchHistorial" placeholder="Buscar..." />
+              </div>
+              <select id="filtroEstado" class="select-sm">
+                <option value="todos">Todos</option>
+                <option value="en_taller">En taller</option>
+                <option value="entregado">Entregados</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Placa</th>
+                  <th>Vehículo</th>
+                  <th>Cliente</th>
+                  <th>Estado</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+                  <th>Tiempo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tablaHistorial"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TUTORIALES -->
+      <section id="view-tutorial" class="view">
+        <div class="tutorial-hero glass">
+          <div class="tutorial-hero-content">
+            <span class="badge-premium">Guía rápida</span>
+            <h2>Aprende a usar Taller Pro</h2>
+            <p>Videos cortos para dominar el sistema en minutos. Ideal para capacitar a tu equipo.</p>
+          </div>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card glass">
+            <div class="video-thumb">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" title="Cómo registrar un vehículo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <h4>1. Registrar entrada de vehículo</h4>
+              <p>Aprende a capturar todos los datos del vehículo y cliente en segundos.</p>
+            </div>
+          </div>
+
+          <div class="video-card glass">
+            <div class="video-thumb">
+              <iframe src="https://www.youtube.com/embed/jNQXAC9IVRw?rel=0" title="Mover área y personal" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <h4>2. Cambiar área y encargado</h4>
+              <p>Cómo mover un vehículo entre áreas del taller y reasignar personal.</p>
+            </div>
+          </div>
+
+          <div class="video-card glass">
+            <div class="video-thumb">
+              <iframe src="https://www.youtube.com/embed/9bZkp7q19f0?rel=0" title="Marcar salida" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <h4>3. Marcar salida y entrega</h4>
+              <p>Proceso de entrega al cliente y cierre del registro.</p>
+            </div>
+          </div>
+
+          <div class="video-card glass">
+            <div class="video-thumb">
+              <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk?rel=0" title="Backup de datos" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <h4>4. Exportar e importar datos</h4>
+              <p>Cómo hacer respaldo y restaurar la información del taller.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tips-panel glass">
+          <h3>Consejos pro</h3>
+          <div class="tips-grid">
+            <div class="tip">
+              <span class="tip-num">01</span>
+              <p>Exporta tus datos semanalmente. Los registros viven en el navegador.</p>
+            </div>
+            <div class="tip">
+              <span class="tip-num">02</span>
+              <p>Usa el mismo navegador siempre para mantener los datos sincronizados.</p>
+            </div>
+            <div class="tip">
+              <span class="tip-num">03</span>
+              <p>Configura primero las áreas y el personal real de tu taller.</p>
+            </div>
+            <div class="tip">
+              <span class="tip-num">04</span>
+              <p>El historial de cada vehículo es inmutable una vez marcado como entregado.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFIG -->
+      <section id="view-config" class="view">
+        <div class="config-grid">
+          <div class="panel glass">
+            <div class="panel-header">
+              <div>
+                <h3>Áreas de trabajo</h3>
+                <p class="panel-desc">Define las zonas de tu taller</p>
+              </div>
+            </div>
+            <form id="formArea" class="inline-form">
+              <input type="text" name="nombre" placeholder="Nueva área..." required />
+              <button type="submit" class="btn-primary">Agregar</button>
+            </form>
+            <ul class="chip-list" id="listaAreas"></ul>
+          </div>
+
+          <div class="panel glass">
+            <div class="panel-header">
+              <div>
+                <h3>Personal técnico</h3>
+                <p class="panel-desc">Equipo responsable</p>
+              </div>
+            </div>
+            <form id="formPersonal" class="inline-form">
+              <input type="text" name="nombre" placeholder="Nombre del técnico..." required />
+              <button type="submit" class="btn-primary">Agregar</button>
+            </form>
+            <ul class="chip-list" id="listaPersonal"></ul>
+          </div>
+
+          <div class="panel glass full-width danger-zone">
+            <div class="panel-header">
+              <div>
+                <h3>Zona de peligro</h3>
+                <p class="panel-desc">Acciones irreversibles</p>
+              </div>
+            </div>
+            <p class="hint">Los datos se almacenan localmente. Realiza exportaciones periódicas.</p>
+            <button id="btnLimpiarTodo" class="btn-danger">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Borrar todos los datos
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal glass" id="modalBox">
+      <button class="modal-close" id="modalClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- Welcome modal (first visit) -->
+  <div class="modal-overlay" id="welcomeModal">
+    <div class="modal glass welcome-modal">
+      <div class="welcome-content">
+        <div class="welcome-icon">🔧</div>
+        <h2>Bienvenido a Taller Pro</h2>
+        <p>Sistema de gestión profesional para talleres. Ya tienes vehículos de demostración cargados para que explores todas las funciones.</p>
+        <ul class="welcome-features">
+          <li>✓ Dashboard en tiempo real</li>
+          <li>✓ Historial completo de movimientos</li>
+          <li>✓ Tutoriales en video incluidos</li>
+          <li>✓ Exportación de datos</li>
+        </ul>
+        <button class="btn-primary btn-lg" id="btnStart">Comenzar ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
